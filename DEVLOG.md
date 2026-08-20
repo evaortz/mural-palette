@@ -20,3 +20,11 @@ Instadas las librerias de:
 Añadidas a requirements.txt
 
 Añadido .gitignore
+
+
+
+## 20/08/2026
+Crear una funcion para cargar una imagen y prepararla para que posteriormente se pueda procesar.
+
+Creado core/__init__.py para que python sepa que lo que hay en core/ es un paquete.
+Creados los modulos de image_loader: open_image, check_rgb y resize_image. Probado con un boceto de prueba en assets/samples
