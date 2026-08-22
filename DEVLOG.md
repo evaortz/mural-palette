@@ -46,4 +46,14 @@ Reorganizada la estructura del proyecto:
 - Resultado: imports limpios sin `sys.path` hacks
 
 
+## 22/08/2026
+Objetivo: Implementar quantize_image(image, n_colors=16), una funcion para reducir los colores de una imagen a un numero de colores predominantes (por defecto 16), para ello hay que usar Median Cut de Pillow.Irá en quantizer.py
 
+Creado quantizer.py con quantize_image(image, n_colors=16) terminada pero sin testear.
+
+Validaciones: image debe ser PIL.Image.Image, n_colors debe ser int positivo y <= 256.
+
+Problema que ha aparecido: si la imagen tiene menos colores reales que n_colors, Pillow rellena la paleta con colores "fantasma"
+    - Solución: usar getcolors() para saber qué índices de la paleta están realmente en uso, y filtrar la paleta para devolver solo esos colores.
+
+Pendiente: crear test_quantizer_manual.py con casos de validación (tipos inválidos, rangos, imagen con pocos colores) y caso normal.
