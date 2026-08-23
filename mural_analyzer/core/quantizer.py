@@ -32,7 +32,7 @@ def quantize_image(image, n_colors=16):
 
     palette = []
 
-    for i in range(0, n_colors * 3, 3):
+    for i in range(0, len(raw_palette), 3):
         palette.append((raw_palette[i], raw_palette[i + 1], raw_palette[i + 2]))
 
     used_colors = []
