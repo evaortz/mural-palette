@@ -57,3 +57,28 @@ Problema que ha aparecido: si la imagen tiene menos colores reales que n_colors,
     - Solución: usar getcolors() para saber qué índices de la paleta están realmente en uso, y filtrar la paleta para devolver solo esos colores.
 
 Pendiente: crear test_quantizer_manual.py con casos de validación (tipos inválidos, rangos, imagen con pocos colores) y caso normal.
+
+
+## 22/08/2026
+Objetivo: Hacer un test de comprobacion de quantize_image() con caso feliz, manejo de errores de parametros y coso de una imagen con menos de n_color.
+
+Creado tests/test_quantize_image_manual.py con 7 casos:
+- Test 1: caso feliz con sketch1.jpeg (n_colors=16)
+- Test 2-6: validaciones de tipo/rango (image inválida, n_colors no-int, negativo, >256, =0)
+- Test 7: imagen generada en código (Image.new + paste) con exactamente 3 colores reales, pedida con n_colors=16 → caso límite de "colores fantasma"
+
+Apunte: se han usado asserts
+
+### Bug encontrado y corregido gracias al test
+En `quantizer.py`, el bucle que reconstruye la paleta de tuplas RGB:
+```python
+for i in range(0, n_colors * 3, 3):
+```
+asumía que `raw_palette`siempre tiene `n_colors * 3` elementos.
+Con imágenes de pocos colores reales (ej. 3 colores, pedidos con n_colors=16), Pillow
+devuelve una paleta más corta porque el test dió este error: `IndexError: list index out of range`.
+
+**Fix:** basar el rango en el tamaño real de la paleta, no en n_colors pedido:
+```python
+for i in range(0, len(raw_palette), 3):
+```
