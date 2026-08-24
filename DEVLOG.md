@@ -82,3 +82,19 @@ devuelve una paleta más corta porque el test dió este error: `IndexError: list
 ```python
 for i in range(0, len(raw_palette), 3):
 ```
+
+
+## 24/08/2026
+Objetivo: Implementar color_percentages() en pixel_counter.py con su test manual.
+
+Creada y completada la funcion color_percentages():
+- Recibe la imagen cuantizada y la paleta (salida de quantize_image)
+- Calcula el % de cada color como count / total_pixels * 100
+- Devuelve una lista de tuplas (color, percentage)
+
+Creado tests/test_color_percentages_manual.py con 8 casos: caso feliz con sketch1.jpeg,
+tipos inválidos (imagen, paleta, color no-tupla), valores inválidos (tupla de tamaño
+incorrecto, RGB fuera de rango, RGB no entero), y paleta más corta que los colores reales
+de la imagen (índice fuera de rango). 8/8 pasan.
+
+Cambiado el nombre de test_quantize_image_manual.py a test_quantizer_manual.py
