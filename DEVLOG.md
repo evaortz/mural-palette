@@ -98,3 +98,18 @@ incorrecto, RGB fuera de rango, RGB no entero), y paleta más corta que los colo
 de la imagen (índice fuera de rango). 8/8 pasan.
 
 Cambiado el nombre de test_quantize_image_manual.py a test_quantizer_manual.py
+
+
+## 25/08/2026
+Objetivo: Implementar la funcion merge_colors() en color_merger.py y su test manual
+
+Creada `color_merger.py` con función `merge_colors(color_percentages_list, threshold=20)`:
+- Fusiona colores por distancia euclidiana
+- Algoritmo iterativo hasta convergencia (sin más cambios posibles)
+- Selecciona color más abundante + suma porcentajes
+- Validaciones robustas: tipos, rangos, valores
+
+Creado `tests/test_color_merger_manual.py` y comprobado que la funcion pasa el test:
+- 2 casos felices
+- 3 casos límite (threshold distinto, lista vacía, colores no fusionan)
+- 7 validaciones de error
