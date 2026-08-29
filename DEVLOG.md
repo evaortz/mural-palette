@@ -113,3 +113,19 @@ Creado `tests/test_color_merger_manual.py` y comprobado que la funcion pasa el t
 - 2 casos felices
 - 3 casos límite (threshold distinto, lista vacía, colores no fusionan)
 - 7 validaciones de error
+
+
+## 29/08/2026
+Objetivo: Completar la función rgb_to_cmyw() en color_recipe.py y su test manual
+
+Creada `rgb_to_cmyw(rgb_tuple)` en `core/color_recipe.py`
+- Convierte RGB → receta CMY + Blanco (sin negro)
+- Validaciones: tupla, 3 elementos, cada uno int, cada uno en 0-255
+- Caso especial blanco puro (`white >= 0.999`) con return temprano, evita división por cero
+- Redondeo a 1 decimal en las 4 claves del diccionario de salida
+- C+M+Y suma 100 entre sí; W es independiente (mismo patrón que K en CMYK estándar) — no se cumple C+M+Y+W=100
+
+Creado `tests/test_color_recipe_manual.py` y comprobado que la función pasa el test
+- Caso feliz con la paleta de sketch1.jpeg quantizada
+- Blanco puro, negro puro
+- 4 validaciones de error (no-tupla, no-int, número de elementos≠3, fuera de rango 0-255)
