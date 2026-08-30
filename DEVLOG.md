@@ -129,3 +129,14 @@ Creado `tests/test_color_recipe_manual.py` y comprobado que la función pasa el 
 - Caso feliz con la paleta de sketch1.jpeg quantizada
 - Blanco puro, negro puro
 - 4 validaciones de error (no-tupla, no-int, número de elementos≠3, fuera de rango 0-255)
+
+
+## 30/08/2026
+Objetivo: Completar pipeline.py, el módulo que orquesta todas las funciones del core: load_and_format → quantize_image → color_percentages → merge_colors → rgb_to_cmyw
+
+Creada `analyze_image(route, size=800, n_colors=16, merge_threshold=20)` en `core/pipeline.py`
+- Orquesta: load_and_format() → quantize_image() → color_percentages() → merge_colors() → rgb_to_cmyw()
+- Devuelve lista de dicts: `[{rgb: tuple, percentage: float, cmyw: dict}, ...]`
+- Excepciones: propagan sin atrapar 
+
+Creado `tests/test_pipeline_manual.py` y comprobado que funciona
