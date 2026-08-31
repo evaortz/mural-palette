@@ -1,10 +1,14 @@
 import PIL
 from PIL import Image
 
-def open_image(route):
-    "opens an image and returns it as a PIL Image object"
+def open_image(fp):
+    """opens an image and returns it as a PIL Image object
+
+        Args:
+            fp: acepts string, pathlib.Path object or file object
+    """
     
-    image = Image.open(route)
+    image = Image.open(fp)
     return image
 
 
@@ -32,10 +36,16 @@ def resize_image(image, size):
     
     return image
 
-def load_and_format(route, size):
-    "Load an check the format of an image, then it converts it to RGB if necesary and resizes it to the second parameter"
+def load_and_format(fp, size=800):
+    """
+    Load an check the format of an image, then it converts it to RGB if necesary and resizes it to the second parameter
 
-    image = open_image(route)
+        Args:
+            fp: acepts string, pathlib.Path object or file object.
+            size (int): Maximum width or height to resize the image to, maintaining aspect ratio. Default is 800.
+    """
+
+    image = open_image(fp)
     image = check_rgb(image)
     image = resize_image(image, size)
     return image

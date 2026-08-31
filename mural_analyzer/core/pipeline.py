@@ -4,12 +4,12 @@ from mural_analyzer.core.color_merger import merge_colors
 from mural_analyzer.core.color_percentages import color_percentages
 from mural_analyzer.core.color_recipe import rgb_to_cmyw
 
-def analyze_image(route, size=800, n_colors=16, merge_threshold=20):
+def analyze_image(fp, size=800, n_colors=16, merge_threshold=20):
     """
     Quantizes an image to n_colors, merges similar colors, and extracts the palette in CMYW with percentages.
 
         Args:
-            route (str): Path to the image file.
+            fp: acepts string, pathlib.Path object or file object.
             size (int): Maximum width or height to resize the image to, maintaining aspect ratio. Default is 800.
             n_colors (int): The number of colors to quantize the image to. Default is 16.
             merge_threshold (int): Maximum distance to consider two colors "similar" (0-255). Default is 20.
@@ -27,7 +27,7 @@ def analyze_image(route, size=800, n_colors=16, merge_threshold=20):
     """
 
     #1. Cargar imagen desde ruta → variable: img
-    img = load_and_format(route, size)
+    img = load_and_format(fp, size)
 
     #2. Cuantizar a n_colors → variable: quantized_img, palette = quantize_image(...)
     quantized_img, palette = quantize_image(img, n_colors)
