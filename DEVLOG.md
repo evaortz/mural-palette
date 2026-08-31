@@ -140,3 +140,18 @@ Creada `analyze_image(route, size=800, n_colors=16, merge_threshold=20)` en `cor
 - Excepciones: propagan sin atrapar 
 
 Creado `tests/test_pipeline_manual.py` y comprobado que funciona
+
+
+## 31/08/2026
+Objetivo: Instalar streamlit y crear adapters/streamlit_ui.py con lo mínimo: subir una imagen y mostrar el resultado en pantalla.
+
+Instalado Streamlit y añadido a `requirements.txt`
+
+Cambiado el nombre del parámetro `route` a `fp` en `open_image()`, `load_and_format()` en `core/image_loader.py` y `analyze_image()` en `core/pipeline.py`(y corregidos también los docstrings) porque, en preparación para conectar con Streamlit, estas funciones seguramente recibirán realmente un file object y realmente pillow soporta tanto file object, como path con string. Pasados los test `test_image_loader_manual.py` y `test_pipeline_manual.py` tras el cambio y todo correcto.
+
+Creado `adapters/streamlit_ui.py`como una versión mínima del programa:
+- Uploader limitado a archivos image
+- Ejecuta analyze_image() en el archivo subido
+- Escribe la lista que devuelve la funcion para poder visualizarla
+- Manejo de errores con try/except/else para `PIL.UnidentifiedImageError` 
+- Testeado en el navegador con un caso feliz (sketch1.jpeg) y archivo no-imagen con una exptension de imagen. Todos funciona adecuadamente. Observado que al subir un archivo sin extension de imagen el propio streslit maneja el error y rechaza el archivo.
