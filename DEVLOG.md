@@ -155,3 +155,12 @@ Creado `adapters/streamlit_ui.py`como una versión mínima del programa:
 - Escribe la lista que devuelve la funcion para poder visualizarla
 - Manejo de errores con try/except/else para `PIL.UnidentifiedImageError` 
 - Testeado en el navegador con un caso feliz (sketch1.jpeg) y archivo no-imagen con una exptension de imagen. Todos funciona adecuadamente. Observado que al subir un archivo sin extension de imagen el propio streslit maneja el error y rechaza el archivo.
+
+
+## 01/09/2026
+Objetivo: mejorar la visualización de los resultados, mostrandolos en una tabla o tarjetas con colores y gráfico de porcentajes.
+
+Reemplazado `st.write(palette_info)` por un **layout de tarjetas**(una por color), con cuadrado de color, porcentaje total, y barras CMYW individuales.
+- Usado `st.html()` para pcrear cuadrado de color y barras con color custom (st.progress/st.bar_chart no lo permitían bien).
+- Bugs: comillas anidadas rompiendo el HTML, escala 0-1 vs 0-100 en st.progress(), desempaquetado incorrecto del diccionario en el for.
+-Probado con sketch1.jpeg, funciona correctamente.
