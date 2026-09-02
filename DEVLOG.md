@@ -164,3 +164,12 @@ Reemplazado `st.write(palette_info)` por un **layout de tarjetas**(una por color
 - Usado `st.html()` para pcrear cuadrado de color y barras con color custom (st.progress/st.bar_chart no lo permitían bien).
 - Bugs: comillas anidadas rompiendo el HTML, escala 0-1 vs 0-100 en st.progress(), desempaquetado incorrecto del diccionario en el for.
 -Probado con sketch1.jpeg, funciona correctamente.
+
+
+## 02/09/2026
+Objetivo: Añadir sliders a `adapters/streamlit_ui.py` para controlar `n_colors`y `merge_threshold` y que `analyze_image()` funcione con esos argumentos.
+
+Añadidos sliders `n_colors` y `merge_threshold`(con `st.slider()`) conectados a `analyze_image()`, reorganizados en columnas.
+
+Añadido toogle "Sort by percentage" con `st.toogle`, ordena palette_info de porcentaje más alto a más bajo con sorted()
+
