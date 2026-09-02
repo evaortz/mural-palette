@@ -5,12 +5,18 @@ import pandas as pd
 
 
 uploaded_file = st.file_uploader("Upload an image", "image/*")
+col1, col2 = st.columns(2)
+n_colors = col1.slider("How many colors?", 2, 255, 16, help="The number of colors to quantize the image to")
+merge_threshold = col2.slider("Distance of the colors to blend?", 0, 255, 20, help="The threshold for merging similar colors")
 if uploaded_file is not None:
     try:
-        palette_info = analyze_image(uploaded_file)
+        palette_info = analyze_image(uploaded_file, n_colors=n_colors, merge_threshold=merge_threshold)
     except UnidentifiedImageError:
         st.error("Error: The file must be an image")
     else:
+        _, _, right = st.columns(3)
+        if right.toggle("Sort by percentage"):
+            palette_info = sorted(palette_info,key=lambda item: item["percentage"], reverse=True)
         for i, palette_item in enumerate(palette_info):
             r , g, b = palette_item["rgb"]
             cmyw = palette_item["cmyw"]
