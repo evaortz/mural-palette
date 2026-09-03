@@ -175,3 +175,14 @@ Añadido toogle "Sort by percentage" con `st.toogle`, ordena palette_info de por
 
 Quitada la instalación editable (-e git+...) de `requirements.txt`: es innecesaria, los imports funcionan solo por la estructura de carpetas del repo, y no era portable a otros entornos.
 
+
+## 03/09/2026
+Objetivo: Completar `pack_circles()` en `core/circle_packing.py`, una función que calcular las dimensiones x,y y r de circulos tomando como referencia percentage para los diferentes radios, y hacer un test manual.
+
+Instalado circlify y congelado en `requeriments.txt`
+
+Completada la funcion `pack_circles()`
+
+Test manual con 3 asserts relevantes, funciona.
+
+Nota: Aparecen warnings de circlify porque algunas keys del diccionario no se usan.
