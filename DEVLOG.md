@@ -173,3 +173,5 @@ Añadidos sliders `n_colors` y `merge_threshold`(con `st.slider()`) conectados a
 
 Añadido toogle "Sort by percentage" con `st.toogle`, ordena palette_info de porcentaje más alto a más bajo con sorted()
 
+Quitada la instalación editable (-e git+...) de `requirements.txt`: es innecesaria, los imports funcionan solo por la estructura de carpetas del repo, y no era portable a otros entornos.
+
