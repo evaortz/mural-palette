@@ -186,3 +186,20 @@ Completada la funcion `pack_circles()`
 Test manual con 3 asserts relevantes, funciona.
 
 Nota: Aparecen warnings de circlify porque algunas keys del diccionario no se usan.
+
+Arreglado el requirements.txt porque el entorno editable seguia instalado. Se desinstaló con:
+```
+ pip uninstall mural_palette
+```
+
+
+## 04/09/2026
+Objetivo: Probar a renderizar un circulo con `matplotlib`,integrar `pack_circles()` en adapters/streamlit_ui.py, renderizando el resultado con `st.pyplot()` y testearlo con alguna imagen.
+
+Probado `matplotlib.patches.Circle` con un circulo y posteriormente con una paleta creada con `pack_circles()`
+
+Segundo bug del `requirements.txt/venv` encontrado: la desinstalación de mural_palette rompió todos los tests, porque el proyecto sí dependía de la instalación editable para que python encontrara mural_analyzer desde tests/. Si que funciona así: correr con `python -m tests.nombre_test` en vez de python `tests/nombre_test.py` eso agrega la raíz al sys.path en vez de la carpeta del script.
+- Solución: instalada de nuevo el editable local con `pip install -e .` pero borrada la línea `-e git+...` de `requirements.txt`. Lo malo es que hay que hacer esto siempre que se haga `pip freeze`
+
+Integrado `pack_circles()` en `streamlit_ui.py`. Los circulos se renderizan con `st.pyplot()` encima de las tarjetas.
+- Testeado con diferentes imágenes y parámetros en la interfaz de streamlit_ui.py. Funciona correctamente
