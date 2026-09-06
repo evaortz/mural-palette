@@ -202,4 +202,12 @@ Segundo bug del `requirements.txt/venv` encontrado: la desinstalación de mural_
 - Solución: instalada de nuevo el editable local con `pip install -e .` pero borrada la línea `-e git+...` de `requirements.txt`. Lo malo es que hay que hacer esto siempre que se haga `pip freeze`
 
 Integrado `pack_circles()` en `streamlit_ui.py`. Los circulos se renderizan con `st.pyplot()` encima de las tarjetas.
-- Testeado con diferentes imágenes y parámetros en la interfaz de streamlit_ui.py. Funciona correctamente
+- Testeado con diferentes imágenes y parámetros en la interfaz de streamlit_ui.py. Funciona correctamente.
+
+
+# 06/09/2026
+Objetivo: Diseñar y empezar a escribir las funciones `calculate_palette_quantities()`, que calcula la superficie y la cantida en litros de cada color de la paleta, y `calculate_primary_quantities()`, que suma los litros totales de cada color primario. Irian en `paint_calculation.py`
+
+Creado y completado `core/paint_calculation.py` con `calculate_palette_quantities()` y `calculate_primary_quantities()`
+- Validación de parametros en ambas (ValueError en coverage_rate/total_area <= 0, y vrificar si exiten las claves 'percentage' y 'cmyk')
+- Test manual tests/test_paint_calculation_manual.py: 4 casos (uso real con analyze_image, caso con valores simples verificados a mano, y 2 edge cases de error) todos pasan.
