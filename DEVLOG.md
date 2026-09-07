@@ -211,3 +211,16 @@ Objetivo: Diseñar y empezar a escribir las funciones `calculate_palette_quantit
 Creado y completado `core/paint_calculation.py` con `calculate_palette_quantities()` y `calculate_primary_quantities()`
 - Validación de parametros en ambas (ValueError en coverage_rate/total_area <= 0, y vrificar si exiten las claves 'percentage' y 'cmyk')
 - Test manual tests/test_paint_calculation_manual.py: 4 casos (uso real con analyze_image, caso con valores simples verificados a mano, y 2 edge cases de error) todos pasan.
+
+
+# 07/09/2026
+Objetivo: Integrar `paint_calculation.py` en la UI (input de área y rendimiento + conectar las funciones + mostrar resultado) y resolver la mutacion in-place que hace `calculate_palette_quantities()`
+
+Bug corregido: `calculate_primary_quantities()` ahora resta el blanco antes de repartir C/M/Y, en vez de sumarlos como si fueran independientes de W.
+
+Eliminada mutación in-place en `calculate_palette_quantities()` ahora devuelve una lista nueva, no toca palette_info original.
+
+corregido Test 2 en `tests/test_paint_calculation_manual.py`: añadido yn color blanco y asserts de primary_totals con los valores reales verificados a mano, usando tolerancia de float en vez de igualdad exacta (abs(_ - _) < 1e-10).
+
+Modificado `adapters\streamlit_ui.py` para integrar `calculate_palette_quantities()` y `calculate_primary_quantities()`: toggle opcional, inputs de área/rendimiento, tarjetas con superficie/litros, gráfico de barras de pigmentos
+
