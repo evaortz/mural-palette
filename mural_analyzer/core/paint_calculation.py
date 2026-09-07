@@ -26,9 +26,13 @@ def calculate_palette_quantities(palette_info, total_area, coverage_rate=10):
         # Calculate the liters needed for this color
         liters_needed = surface_area / coverage_rate
         
-        color_info['surface'] = surface_area
-        color_info['liters'] = liters_needed
-        palette_quantities.append(color_info)
+        palette_quantities.append({
+            "rgb": color_info['rgb'],
+            "cmyw": color_info['cmyw'],
+            "percentage": color_percentage,
+            "surface": surface_area,
+            "liters": liters_needed
+        })
     return palette_quantities
 
 def calculate_primary_quantities(palette_info):
@@ -47,10 +51,14 @@ def calculate_primary_quantities(palette_info):
             raise ValueError("Each color_info dictionary must contain 'cmyw' and 'liters' keys.")
         cmyw = color_info['cmyw']
         liters = color_info['liters']
+
         
-        primary_totals['C'] += (cmyw['C'] / 100) * liters
-        primary_totals['M'] += (cmyw['M'] / 100) * liters
-        primary_totals['Y'] += (cmyw['Y'] / 100) * liters
-        primary_totals['W'] += (cmyw['W'] / 100) * liters
+        white_quantity = (cmyw['W'] / 100) * liters
+        tone_quantity = liters - white_quantity
+        primary_totals['W'] += white_quantity
+        primary_totals['C'] += (cmyw['C'] / 100) * tone_quantity
+        primary_totals['M'] += (cmyw['M'] / 100) * tone_quantity
+        primary_totals['Y'] += (cmyw['Y'] / 100) * tone_quantity
+        
     
     return primary_totals
