@@ -33,20 +33,27 @@ print("Test 2: A good use of the function with mesureable parameters")
 print("=" * 50)
 
 try:
-    palette_info = [{ "rgb": (255, 0, 0), "cmyw": {"C": 0, "M": 100, "Y": 100, "W": 0}, "percentage": 50 },
+    palette_info = [{ "rgb": (255, 0, 0), "cmyw": {"C": 0, "M": 100, "Y": 100, "W": 0}, "percentage": 40 },
                     { "rgb": (0, 255, 0), "cmyw": {"C": 100, "M": 0, "Y": 100, "W": 0}, "percentage": 30 },
-                    { "rgb": (0, 0, 255), "cmyw": {"C": 100, "M": 100, "Y": 0, "W": 0}, "percentage": 20 }]
+                    { "rgb": (0, 0, 255), "cmyw": {"C": 100, "M": 100, "Y": 0, "W": 0}, "percentage": 20 },
+                    { "rgb": (255, 255, 255), "cmyw": {"C": 0, "M": 0, "Y": 0, "W": 100}, "percentage": 10 }]
     total_area = 10
     coverage_rate = 10
     palette_quantities = calculate_palette_quantities(palette_info, total_area, coverage_rate)
-    assert palette_quantities[0]['surface'] == 5.0, "Surface area for first color should be 5.0 m²"
-    assert palette_quantities[0]['liters'] == 0.5, "Liters needed for first color should be 0.5 L"
+    assert palette_quantities[0]['surface'] == 4.0, "Surface area for first color should be 4.0 m²"
+    assert palette_quantities[0]['liters'] == 0.4, "Liters needed for first color should be 0.4 L"
     assert palette_quantities[1]['surface'] == 3.0, "Surface area for second color should be 3.0 m²"
     assert palette_quantities[1]['liters'] == 0.3, "Liters needed for second color should be 0.3 L"
     assert palette_quantities[2]['surface'] == 2.0, "Surface area for third color should be 2.0 m²"
     assert palette_quantities[2]['liters'] == 0.2, "Liters needed for third color should be 0.2 L"
+    assert palette_quantities[3]['surface'] == 1.0, "Surface area for fourth color should be 1.0 m²"
+    assert palette_quantities[3]['liters'] == 0.1, "Liters needed for fourth color should be 0.1 L"
 
     primary_totals = calculate_primary_quantities(palette_quantities)
+    assert abs(primary_totals['C'] - 0.5) < 1e-10, "Total liters for Cyan should be 0.5 L"
+    assert abs(primary_totals['M'] - 0.6) < 1e-10, "Total liters for Magenta should be 0.6 L"
+    assert abs(primary_totals['Y'] - 0.7) < 1e-10, "Total liters for Yellow should be 0.7 L"
+    assert abs(primary_totals['W'] - 0.1) < 1e-10, "Total liters for White should be 0.1 L"
     print(f"YES! Palette quantities and primary totals calculated successfully.")
     print("Palette Quantities:")
     for color in palette_quantities:
