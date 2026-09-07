@@ -1,5 +1,6 @@
 from mural_analyzer.core.pipeline import analyze_image
 from mural_analyzer.core.circle_packing import pack_circles
+from mural_analyzer.core.paint_calculation import calculate_palette_quantities, calculate_primary_quantities
 import streamlit as st
 from PIL import UnidentifiedImageError
 import pandas as pd
@@ -39,8 +40,22 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
 
+        #Pinturas
+        on = st.toggle("Show painting quantities")
+        if on:
+            col3, col4 = st.columns(2)
+            total_area = col3.number_input("Total area to be painted (m²)", min_value=0.01, value=100.0, step=1.0)
+            coverage_rate = col4.number_input("Coverage rate (m²/L)", min_value=0.01, value=10.0, step=0.1)
+            palette_quantities = calculate_palette_quantities(palette_info, total_area, coverage_rate)
+            totales = calculate_primary_quantities(palette_quantities)
+            df = pd.DataFrame([totales])
+            st.bar_chart(df, color=["#00adf3", "#fc01ff", "#fef900", "#e5e5e5"], horizontal=True )
+
+
         #Tarjetas
         _, _, right = st.columns(3)
+        if on:
+            palette_info = palette_quantities
         if right.toggle("Sort by percentage"):
             palette_info = sorted(palette_info,key=lambda item: item["percentage"], reverse=True)
         for i, palette_item in enumerate(palette_info):
@@ -63,5 +78,11 @@ if uploaded_file is not None:
                         with st.container(gap="xxsmall"):
                             st.caption(f"{name} {value}%")
                             st.html(f'<div style="background-color: #f0f2f6; width: 100%; height: 8px; border-radius: 200px; overflow: hidden"><div style="background-color: {color}; width: {value}%; height: 100%;"></div></div>')
+                    if on:
+                        col5, col6 = st.columns(2)
+                        with col5:
+                                st.caption(f"{palette_item['surface']:.2f} m²")
+                        with col6:
+                                st.caption(f"{palette_item['liters']:.2f} L")
 
 
